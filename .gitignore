@@ -6,6 +6,7 @@ vagrant.bak
 *~
 named/*
 named.conf
+.gitignore
 application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
