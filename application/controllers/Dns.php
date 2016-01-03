@@ -14,6 +14,27 @@ class Dns extends Ci_Controller{
         $data['my_list'] = $file;
     	$this->load->view('Dns/changes',$data);
     }
+    public function editnamed($item)
+    {
+        # code...
+        $myfile = fopen("/vagrant/named/$item", "r") or die("Unable to open file!");
+
+        while (($buffer = fgets($myfile, 4096)) !== false) {
+            $read[] = $buffer;
+        }
+
+        // $data = fread($myfile,filesize("/vagrant/named/$item"));
+        // return $data;
+        // print_r($data);
+        // $read = nl2br($data);
+        // var_dump( explode( '\n', $read) );
+        // var_dump($read);
+        // fclose($myfile);
+
+        $data = array('read' => $read);
+
+        $this->load->view('Dns/editnamed',$data);
+    }
     public function viewnamed($item)
     {
         # code...
@@ -21,17 +42,11 @@ class Dns extends Ci_Controller{
         $data = fread($myfile,filesize("/vagrant/named/$item"));
         // return $data;
         // print_r($data);
-        $date = nl2br("$data.\n");
-        // echo $date;
-        $this->load->view('Dns/viewnamed',$date);
+        $read = nl2br("$data.\n");
         fclose($myfile);
-    }
-    public function editnamed($item)
-    {
-        # code...
-        $myfile = fopen("/vagrant/named/$item", "rw") or die("Unable to open file!");
-        $data = fread($myfile,filesize("/vagrant/named/$item"));
-        echo nl2br("$data.\n");
-        fclose($myfile);
+
+        $data = array('read' => $read);
+
+        $this->load->view('Dns/viewnamed',$data);
     }
 }

@@ -2,8 +2,11 @@
 <head>
 </head>
 <body>
-<b><?php echo $read;?></b>
-
-
+<?php foreach ($read as $value) {
+	echo $value.'<button>修改</button><br>';
+}?>
+<form>
+<input type="text" name="firstname"/>
+</form>
 </body>
-</html>
+<html>
